@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All tests">
+  <test name="ICanWinTest">
+    <classes>
+      <class name="com.epam.learn.tests.i_can_win.ICanWinTest">
+        <methods>
+          <include name="shouldGetEnteredHeading"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="BringItOnTest">
+    <classes>
+      <class name="com.epam.learn.tests.bring_it_on.BringItOnTest">
+        <methods>
+          <include name="shouldGetEnteredHeading"/>
+          <include name="shouldGetCodeWithBashSyntaxHighlighting"/>
+          <include name="shouldGetEnteredCode"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="HurtMePlentyTest">
+    <classes>
+      <class name="com.epam.learn.tests.hurt_me_plenty.HurtMePlentyTest">
+        <methods>
+          <include name="shouldGetSelectedMachineClass"/>
+          <include name="shouldGetSelectedMachineType"/>
+          <include name="shouldGetSelectedDatacenterLocation"/>
+          <include name="shouldGetSelectedLocalSSD"/>
+          <include name="shouldGetSelectedCommittedUsage"/>
+          <include name="shouldGetTheSameCostAsInManualCheck"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="HardcoreTest">
+    <classes>
+      <class name="com.epam.learn.tests.hardcore.HardcoreTest">
+        <methods>
+          <include name="shouldGetTheSameCostAsOnCalculatorPage"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
