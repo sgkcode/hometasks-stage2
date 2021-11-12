@@ -8,14 +8,14 @@ import org.openqa.selenium.support.FindBy;
 public class GoogleCloudSearchResultsPage extends AbstractPage {
 
   @FindBy(xpath = "(//a[@class='gs-title'])[1]")
-  private WebElement firstPositionInSearchResults;
+  private WebElement firstPositionInSearchResultsLink;
 
   protected GoogleCloudSearchResultsPage(WebDriver driver) {
     super(driver);
   }
 
   public GoogleCloudPricingCalculatorPage goToPricingCalculatorFromSearchResults() {
-    waitForElementToBeClickable(firstPositionInSearchResults).click();
+    waitForElementToBeClickable(firstPositionInSearchResultsLink).click();
     return new GoogleCloudPricingCalculatorPage(driver);
   }
 }

@@ -13,17 +13,17 @@ public class GoogleCloudPricingCalculatorEstimatePage extends AbstractPage {
   @FindBy(id = "myFrame")
   private WebElement contentFrame;
   @FindBy(xpath = "//div[contains(text(),'VM class')]")
-  private WebElement vmClass;
+  private WebElement vmClassField;
   @FindBy(xpath = "//div[contains(text(),'Instance type')]")
-  private WebElement instanceType;
+  private WebElement instanceTypeField;
   @FindBy(xpath = "//div[contains(text(),'Region')]")
-  private WebElement region;
+  private WebElement regionField;
   @FindBy(xpath = "//div[contains(text(),'Local SSD')]")
-  private WebElement localSSD;
+  private WebElement localSSDField;
   @FindBy(xpath = "//div[contains(text(),'Commitment term')]")
-  private WebElement commitmentTerm;
+  private WebElement commitmentTermField;
   @FindBy(xpath = "//b[contains(text(), 'Total Estimated Cost:')]")
-  private WebElement totalEstimatedCost;
+  private WebElement totalEstimatedCostField;
   @FindBy(id = "email_quote")
   private WebElement emailEstimateButton;
 
@@ -31,34 +31,34 @@ public class GoogleCloudPricingCalculatorEstimatePage extends AbstractPage {
     super(driver);
   }
 
-  public boolean isVMClassContains(String selectedMachineClass) {
-    return waitForVisibilityOfElement(vmClass).getText().toLowerCase()
-        .contains(selectedMachineClass.toLowerCase());
+  public String getVMClass() {
+    return StringUtils.substringAfter(waitForVisibilityOfElement(vmClassField).getText(), ":")
+        .toLowerCase().trim();
   }
 
-  public boolean isInstanceTypeContains(String selectedInstanceType) {
-    return waitForVisibilityOfElement(instanceType).getText().toLowerCase()
-        .contains(StringUtils.substringBefore(selectedInstanceType, "(").toLowerCase().trim());
+  public String getInstanceType() {
+    return StringUtils.substringAfter(waitForVisibilityOfElement(instanceTypeField).getText(), ": ")
+        .toLowerCase().replaceAll("\\s.*", "");
   }
 
-  public boolean isRegionContains(String selectedDatacenterLocation) {
-    return waitForVisibilityOfElement(region).getText().toLowerCase().contains(
-        StringUtils.substringBefore(selectedDatacenterLocation, "(").toLowerCase().trim());
+  public String getRegion() {
+    return StringUtils.substringAfter(waitForVisibilityOfElement(regionField).getText(), ":")
+        .toLowerCase().trim();
   }
 
-  public boolean isLocalSSDContains(String selectedLocalSsd) {
-    return StringUtils.getDigits(waitForVisibilityOfElement(localSSD).getText())
-        .equals(StringUtils.getDigits(selectedLocalSsd));
+  public String getLocalSSD() {
+    return StringUtils.getDigits(waitForVisibilityOfElement(localSSDField).getText());
   }
 
-  public boolean isCommitmentTermContains(String selectedCommittedUsage) {
-    return waitForVisibilityOfElement(commitmentTerm).getText().toLowerCase()
-        .contains(selectedCommittedUsage.toLowerCase());
+  public String getCommitmentTerm() {
+    return StringUtils.substringAfter(waitForVisibilityOfElement(commitmentTermField).getText(), ":")
+        .toLowerCase().trim();
   }
 
-  public boolean isTotalEstimatedCostContains(double costFromManualCheck) {
-    return waitForVisibilityOfElement(totalEstimatedCost).getText().replaceAll(",", "")
-        .contains(String.valueOf(costFromManualCheck));
+  public double getTotalEstimatedCost() {
+    return Double.parseDouble(StringUtils
+        .substringBefore(waitForVisibilityOfElement(totalEstimatedCostField).getText(), "per 1 month")
+        .replaceAll("[^\\d.]", ""));
   }
 
   public GoogleCloudPricingCalculatorEstimatePage switchToContentFrame() {
@@ -66,7 +66,6 @@ public class GoogleCloudPricingCalculatorEstimatePage extends AbstractPage {
     waitForFrameToBeAvailableAndSwitchToIt(contentFrame);
     return this;
   }
-
 
   public GoogleCloudPricingCalculatorEmailEstimatePage goToEmailEstimate() {
     waitForElementToBeClickable(emailEstimateButton).click();

@@ -19,7 +19,7 @@ public class HardcoreTest extends GoogleCloudBaseTest {
   private YopmailEmailInboxPage emailInboxPage;
   private TabManager tabManager;
 
-  @BeforeClass
+  @BeforeClass(description = "Filling out the form for the Hardcore test")
   @Override
   public void fillOutForm() {
     super.fillOutForm();
@@ -31,7 +31,7 @@ public class HardcoreTest extends GoogleCloudBaseTest {
         .generateNewEmailAddress()
         .copyEmailAddress();
     tabManager.switchToTab(0);
-    emailEstimatePage  = estimatePage.switchToContentFrame()
+    emailEstimatePage = estimatePage.switchToContentFrame()
         .goToEmailEstimate()
         .setEmail()
         .sendEmail();
@@ -42,8 +42,9 @@ public class HardcoreTest extends GoogleCloudBaseTest {
         .getGoogleCloudEstimateMessage();
   }
 
-  @Test
+  @Test(description = "Check received by email total estimated cost")
   public void shouldGetTheSameCostAsOnCalculatorPage() {
-    Assert.assertTrue(emailInboxPage.isTotalEstimatedCostContains(TOTAL_ESTIMATED_COST));
+    Assert.assertEquals(emailInboxPage.getTotalEstimatedCost(), TOTAL_ESTIMATED_COST,
+        "total estimated cost received by email is different from the price calculator page");
   }
 }

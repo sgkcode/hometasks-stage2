@@ -8,27 +8,23 @@ import org.openqa.selenium.support.FindBy;
 public class PastebinResultPastePage extends AbstractPage {
 
   @FindBy(xpath = "//h1")
-  private WebElement heading;
-  @FindBy(xpath = "//ol[@class='bash']")
-  private WebElement bashSyntax;
+  private WebElement headingHeader;
   @FindBy(xpath = "//ol")
-  private WebElement code;
+  private WebElement codeOrderedList;
 
   public PastebinResultPastePage(WebDriver driver) {
     super(driver);
   }
 
-  public boolean isHeadingEqual(String enteredHeading) {
-    return waitForVisibilityOfElement(heading).getText().equals(enteredHeading);
+  public String getHeading() {
+   return waitForVisibilityOfElement(headingHeader).getText();
   }
 
-  public boolean isCodeEqual(String enteredCode) {
-    return waitForVisibilityOfElement(code).getText().equals(enteredCode);
+  public String getCode() {
+    return waitForVisibilityOfElement(codeOrderedList).getText();
   }
 
-  public boolean isBashSyntaxPresent() {
-    return waitForVisibilityOfElement(bashSyntax).isDisplayed();
+  public String getSyntax() {
+    return waitForVisibilityOfElement(codeOrderedList).getAttribute("class");
   }
 }
-
-

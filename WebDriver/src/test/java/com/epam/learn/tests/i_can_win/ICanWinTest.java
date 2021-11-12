@@ -15,7 +15,7 @@ public class ICanWinTest extends BaseTest {
 
   private PastebinResultPastePage pastebinResult;
 
-  @BeforeClass
+  @BeforeClass(description = "Filling out the form for the ICanWin test")
   public void fillOutForm() {
     pastebinResult = new PastebinHomePage(driver)
         .openPage()
@@ -25,8 +25,9 @@ public class ICanWinTest extends BaseTest {
         .createNewPaste();
   }
 
-  @Test
+  @Test(description = "Check received heading")
   public void shouldGetEnteredHeading() {
-    Assert.assertTrue(pastebinResult.isHeadingEqual(PASTE_NAME_FOR_I_CAN_WIN));
+    Assert.assertEquals(pastebinResult.getHeading(), PASTE_NAME_FOR_I_CAN_WIN,
+        "received heading differs from entered heading");
   }
 }

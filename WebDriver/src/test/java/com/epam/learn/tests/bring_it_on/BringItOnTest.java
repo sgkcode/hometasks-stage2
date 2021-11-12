@@ -1,5 +1,6 @@
 package com.epam.learn.tests.bring_it_on;
 
+import static com.epam.learn.constants.PastebinConstants.CLASS_ATTRIBUTE_BASH;
 import static com.epam.learn.constants.PastebinConstants.CODE_FOR_BRING_IT_ON;
 import static com.epam.learn.constants.PastebinConstants.EXPIRATION_TIME;
 import static com.epam.learn.constants.PastebinConstants.PASTE_NAME_FOR_BRING_IT_ON;
@@ -16,7 +17,7 @@ public class BringItOnTest extends BaseTest {
 
   private PastebinResultPastePage pastebinResult;
 
-  @BeforeClass
+  @BeforeClass (description = "Filling out the form for the BringItOn test")
   public void fillOutForm() {
     pastebinResult = new PastebinHomePage(driver)
         .openPage()
@@ -27,18 +28,21 @@ public class BringItOnTest extends BaseTest {
         .createNewPaste();
   }
 
-  @Test
+  @Test(description = "Check received heading")
   public void shouldGetEnteredHeading() {
-    Assert.assertTrue(pastebinResult.isHeadingEqual(PASTE_NAME_FOR_BRING_IT_ON));
+    Assert.assertEquals(pastebinResult.getHeading(), PASTE_NAME_FOR_BRING_IT_ON,
+        "received heading differs from entered heading");
   }
 
-  @Test
+  @Test(description = "Check received code for Bash syntax highlighting")
   public void shouldGetCodeWithBashSyntaxHighlighting() {
-    Assert.assertTrue(pastebinResult.isBashSyntaxPresent());
+    Assert.assertEquals(pastebinResult.getSyntax(), CLASS_ATTRIBUTE_BASH,
+        "received code isn't highlighted as Bash syntax");
   }
 
-  @Test
+  @Test(description = "Check received code")
   public void shouldGetEnteredCode() {
-    Assert.assertTrue(pastebinResult.isCodeEqual(CODE_FOR_BRING_IT_ON));
+    Assert.assertEquals(pastebinResult.getCode(), CODE_FOR_BRING_IT_ON,
+        "received code differs from entered code");
   }
 }

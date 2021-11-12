@@ -11,11 +11,11 @@ public class YopmailEmailInboxPage extends AbstractPage {
   @FindBy(id = "ifmail")
   private WebElement messageFrame;
   @FindBy(xpath = "//span[contains(text(),'noreply@google.com')]")
-  private WebElement messageFromGoogle;
+  private WebElement emailFromGoogleField;
   @FindBy(id = "refresh")
   private WebElement refreshButton;
   @FindBy(xpath = "//h3[contains(text(),'USD')]")
-  private WebElement totalEstimatedMonthlyCost;
+  private WebElement totalEstimatedMonthlyCostField;
 
   public YopmailEmailInboxPage(WebDriver driver) {
     super(driver);
@@ -26,7 +26,7 @@ public class YopmailEmailInboxPage extends AbstractPage {
     while (true) {
       waitForFrameToBeAvailableAndSwitchToIt(messageFrame);
       try {
-        waitForVisibilityOfElement(messageFromGoogle);
+        waitForVisibilityOfElement(emailFromGoogleField);
         break;
       } catch (TimeoutException e) {
         if ((System.currentTimeMillis() - startTimeOfMailChecking) > 60000) {
@@ -39,8 +39,9 @@ public class YopmailEmailInboxPage extends AbstractPage {
     return this;
   }
 
-  public boolean isTotalEstimatedCostContains(double cost) {
-    return waitForVisibilityOfElement(totalEstimatedMonthlyCost).getText().replaceAll(",", "")
-        .contains(String.valueOf(cost));
+  public double getTotalEstimatedCost() {
+    return Double.parseDouble(
+        waitForVisibilityOfElement(totalEstimatedMonthlyCostField).getText()
+            .replaceAll("[^\\d.]", ""));
   }
 }

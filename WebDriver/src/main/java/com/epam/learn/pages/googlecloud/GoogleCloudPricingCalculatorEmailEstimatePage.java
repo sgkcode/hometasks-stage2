@@ -22,12 +22,6 @@ public class GoogleCloudPricingCalculatorEmailEstimatePage extends AbstractPage 
     super(driver);
   }
 
-  public GoogleCloudPricingCalculatorEmailEstimatePage switchToContentFrame() {
-    waitForFrameToBeAvailableAndSwitchToIt(parentFrame);
-    waitForFrameToBeAvailableAndSwitchToIt(contentFrame);
-    return this;
-  }
-
   public GoogleCloudPricingCalculatorEmailEstimatePage setEmail() {
     waitForElementToBeClickable(emailInput).sendKeys(Keys.CONTROL + "v");
     return this;

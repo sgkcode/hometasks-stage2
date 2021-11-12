@@ -20,7 +20,7 @@ public class GoogleCloudBaseTest extends BaseTest {
 
   protected GoogleCloudPricingCalculatorEstimatePage estimatePage;
 
-  @BeforeClass
+  @BeforeClass (description = "Filling out the form for the Google Cloud Calculator tests")
   public void fillOutForm() {
     estimatePage = new GoogleCloudHomePage(driver)
         .openPage()
