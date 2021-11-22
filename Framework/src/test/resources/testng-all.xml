@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="All tests" verbose="1">
+  <test name="SmokeTest">
+    <classes>
+      <class name="com.epam.learn.test.SmokeTest"/>
+    </classes>
+  </test>
+  <test name="HardcoreTest">
+    <classes>
+      <class name="com.epam.learn.test.HardcoreTest"/>
+    </classes>
+  </test>
+</suite>
