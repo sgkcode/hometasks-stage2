@@ -2,6 +2,7 @@ package com.epam.learn.page.googlecloud;
 
 import com.epam.learn.page.AbstractPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,8 @@ public class GoogleCloudPricingCalculatorPage extends AbstractPage {
   private final String optionPattern = "//div[contains(@class,'md-clickable')]"
       + "//div[contains(text(),'%s')]";
 
+  @FindBy(xpath = "//devsite-header")
+  private WebElement topBlockHeader;
   @FindBy(xpath = "//*[@id='cloud-site']//iframe")
   private WebElement parentCalculatorFrame;
   @FindBy(id = "myFrame")
@@ -48,6 +51,8 @@ public class GoogleCloudPricingCalculatorPage extends AbstractPage {
   }
 
   public GoogleCloudPricingCalculatorPage switchToCalculatorFrame() {
+    ((JavascriptExecutor) driver)
+        .executeScript("arguments[0].style.visibility='hidden'", topBlockHeader);
     waitForFrameToBeAvailableAndSwitchToIt(parentCalculatorFrame);
     waitForFrameToBeAvailableAndSwitchToIt(contentCalculatorFrame);
     logger.info("Switched to content frame");

@@ -1,5 +1,7 @@
 package com.epam.learn.page;
 
+import static com.epam.learn.page.googlecloud.GoogleCloudPricingCalculatorPage.PRICING_CALCULATOR_PAGE_URL;
+
 import java.time.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +31,9 @@ public abstract class AbstractPage {
   }
 
   protected WebElement waitForElementToBeClickable(WebElement element) {
+    if (driver.getCurrentUrl().contains(PRICING_CALCULATOR_PAGE_URL)) {
+      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
     return new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS))
         .until(ExpectedConditions.elementToBeClickable(element));
   }
