@@ -51,8 +51,10 @@ public class GoogleCloudPricingCalculatorPage extends AbstractPage {
   }
 
   public GoogleCloudPricingCalculatorPage switchToCalculatorFrame() {
-    ((JavascriptExecutor) driver)
-        .executeScript("arguments[0].style.visibility='hidden'", topBlockHeader);
+    if (browserName.equals("firefox")) {
+      ((JavascriptExecutor) driver)
+          .executeScript("arguments[0].style.visibility='hidden'", topBlockHeader);
+    }
     waitForFrameToBeAvailableAndSwitchToIt(parentCalculatorFrame);
     waitForFrameToBeAvailableAndSwitchToIt(contentCalculatorFrame);
     logger.info("Switched to content frame");
